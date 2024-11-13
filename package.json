@@ -15,8 +15,11 @@
     "@mui/icons-material": "^6.1.5",
     "@mui/material": "^6.1.5",
     "ag-grid-react": "^32.3.0",
+    "dayjs": "^1.11.13",
+    "personaltrainer": "file:",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

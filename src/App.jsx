@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { AppBar, Container, Toolbar, CssBaseline, Tabs, Tab } from '@mui/material'
+import Typography from '@mui/material/Typography';
 import './App.css'
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import CustomerList from './components/CustomerList';
+import TrainingList from './components/TrainingList';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [selectedTab, setSelectedTab] = useState(0); 
+
+  // const handleTabChange = (event, newValue) => {
+  //   setSelectedTab(newValue); 
+  // };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Container maxWidth="xl">
+        <AppBar position='static'>
+          <Toolbar>
+            <Typography variant='h4'>Best trainers</Typography>
+            <Tabs>
+              <Tab label="Customers" component={Link} to="/customers" />
+              <Tab label="Trainings" component={Link} to="/trainings" />
+            </Tabs>
+          </Toolbar>
+        </AppBar>
+        <Routes>
+          <Route path='/customers' element={<CustomerList />} />
+          <Route path='/trainings' element={<TrainingList />} />
+        </Routes>
+        <CssBaseline />
+      </Container>
+    </Router>
+  );
 }
 
 export default App
