@@ -1,36 +1,40 @@
-import { AppBar, Container, Toolbar, CssBaseline, Tabs, Tab } from '@mui/material'
-import Typography from '@mui/material/Typography';
+import { AppBar, Container, CssBaseline, Tab, Box, Typography} from '@mui/material'
+import { TabContext, TabPanel, TabList } from '@mui/lab'; 
 import './App.css'
-import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import CustomerList from './components/CustomerList';
 import TrainingList from './components/TrainingList';
+import { useState } from 'react';
 
 function App() {
-  // const [selectedTab, setSelectedTab] = useState(0); 
+   const [value, setValue] = useState('1'); 
 
-  // const handleTabChange = (event, newValue) => {
-  //   setSelectedTab(newValue); 
-  // };
+   const handleTabChange = (event, newValue) => {
+     setValue(newValue); 
+   };
 
   return (
-    <Router>
       <Container maxWidth="xl">
-        <AppBar position='static'>
-          <Toolbar>
-            <Typography variant='h4'>Best trainers</Typography>
-            <Tabs>
-              <Tab label="Customers" component={Link} to="/customers" />
-              <Tab label="Trainings" component={Link} to="/trainings" />
-            </Tabs>
-          </Toolbar>
-        </AppBar>
-        <Routes>
-          <Route path='/customers' element={<CustomerList />} />
-          <Route path='/trainings' element={<TrainingList />} />
-        </Routes>
         <CssBaseline />
+        <AppBar position='static'>
+          <Typography variant='h5' style={{padding: 10}}>Best Trainers</Typography>
+        </AppBar>
+        <Box sx={{width:'100%'}}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor:'divider'}}>
+              <TabList onChange={handleTabChange}>
+                  <Tab label="Customers" value="1" />
+                  <Tab label="Trainings" value="2" />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
+              <CustomerList />
+            </TabPanel>
+            <TabPanel value="2">
+              <TrainingList />
+            </TabPanel>
+          </TabContext>
+        </Box>
       </Container>
-    </Router>
   );
 }
 

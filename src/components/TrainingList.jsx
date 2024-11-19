@@ -61,8 +61,7 @@ export default function TrainingList() {
 
     return (
         <>
-        <Typography variant="h4">Trainings</Typography>
-            <h2>Trainings</h2>
+        <Typography variant="h5" style={{margin: 10}}>Trainings</Typography>
             <div className="ag-theme-material" style={{ height: 500, width: '100%' }}>
                 <AgGridReact
                     rowData={trainings}

@@ -4,6 +4,7 @@ import { AgGridReact } from 'ag-grid-react';
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import { Typography } from '@mui/material';
 
 export default function CustomerList() {
 
@@ -32,7 +33,7 @@ export default function CustomerList() {
 
     return (
         <>
-            <h2>Customers</h2>
+            <Typography variant="h5" style={{margin: 10}}>Customers</Typography>
             <div className='ag-theme-material' style={{height: 500}}>
                 <AgGridReact
                     rowData={customers}
