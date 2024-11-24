@@ -6,7 +6,7 @@ import TrainingList from './components/TrainingList';
 import { useState } from 'react';
 
 function App() {
-   const [value, setValue] = useState('1'); 
+   const [value, setValue] = useState('2'); 
 
    const handleTabChange = (event, newValue) => {
      setValue(newValue); 
@@ -16,7 +16,7 @@ function App() {
       <Container maxWidth="xl">
         <CssBaseline />
         <AppBar position='static'>
-          <Typography variant='h5' style={{padding: 10}}>Best Trainers</Typography>
+          <Typography variant='h5' style={{padding: 10}}>Best Trainings</Typography>
         </AppBar>
         <Box sx={{width:'100%'}}>
           <TabContext value={value}>
