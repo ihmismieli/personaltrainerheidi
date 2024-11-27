@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCustomersForTraining, saveTraining } from "../personalapi";
+import { getCustomers, getCustomersForTraining, saveTraining } from "../personalapi";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select, TextField } from "@mui/material";
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -19,17 +19,17 @@ export default function AddTraining(props) {
 
     const [customers, setCustomers] = useState([]);
 
-    useEffect(() => {
-        getCustomersForTraining()
-            .then(data => {
-                setCustomers(data);
-            })
-            .catch(error => {
-                console.error("Error fetching customer: " + error)
-            });
-    }, []);
 
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        getCustomers()
+            .then(data => {
+                console.log("Fetched customers:", data);
+                setCustomers(data._embedded.customers);
+            })
+            .catch(err => console.error(err));
+    }, []);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -41,7 +41,14 @@ export default function AddTraining(props) {
 
     const handleSave = () => {
         console.log("Saving training:", training);
-        saveTraining(training)
+        const trainingData = {
+            date: training.date,
+            duration: training.duration,
+            activity: training.activity,
+            customer: training.customer,
+        };
+
+        saveTraining(trainingData)
             .then(() => {
                 props.handleFetch();
                 handleClose();
@@ -78,11 +85,12 @@ export default function AddTraining(props) {
                         style={{ marginTop: 10 }}
                     >
                         <MenuItem value="" disabled>Select customer</MenuItem>
-                        {customers.map((customer) => (
+                        {customers.map(customer => (
                             <MenuItem key={customer._links.self.href} value={customer._links.self.href}>
                                 {customer.firstname} {customer.lastname}
                             </MenuItem>
                         ))}
+
                     </Select>
                     <TextField
                         margin="dense"

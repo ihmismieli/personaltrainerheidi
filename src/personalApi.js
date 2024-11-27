@@ -8,15 +8,12 @@ export function getCustomers() {
 }
 
 export function getCustomersForTraining() {
-    return fetch(import.meta.env.VITE_API_CUSTOMERS_URL)
+    return fetch(import.meta.env.VITE_API_TRAININGS_WITH_CUSTOMER_URL)
         .then(response => {
             if (!response.ok)
                 throw new Error("Error in fetch: " + response.statusText);
             return response.json();
         })
-        .then(data => {
-            return data._embedded.customers || [];
-        });
 }
 
 export function getTrainings() {
@@ -32,7 +29,12 @@ export function saveTraining(newTraining) {
     return fetch(import.meta.env.VITE_API_TRAININGS_URL, {
         method: "POST",
         headers: { "Content-Type" : "application/json"},
-        body: JSON.stringify(newTraining)
+        body: JSON.stringify({
+            date: newTraining.date,
+            duration: newTraining.duration,
+            activity: newTraining.activity,
+            customer: newTraining.customer, 
+        }),
     })
     .then(response => {
         if(!response.ok)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { deleteTraining, getCustomers, getTrainings } from "../personalapi";
+import { deleteTraining, getCustomersForTraining, getTrainings } from "../personalapi";
 import { AgGridReact } from "ag-grid-react";
 import dayjs from 'dayjs';
 
@@ -44,30 +44,11 @@ export default function TrainingList() {
     }, []);
 
     const handleFetch = () => {
-        getTrainings()
+        getCustomersForTraining()
             .then((data) => {
-                //käytetään map -funktiota hakemaan tiedot jokaiselle harjoitukselle
-                return Promise.all(
-                    data._embedded.trainings.map((training) => {
-                        return fetch(training._links.customer.href)
-                            .then((response) => response.json())
-                            .then((customer) => {
-                                // liitetään asiakastiedot training objektin sisälle
-                                return {
-                                    ...training,
-                                    customer: {
-                                        firstname: customer.firstname,
-                                        lastname: customer.lastname
-                                    }
-                                };
-                            });
-                    })
-                );
+                setTrainings(data);
             })
-            .then((trainingsWithCustomers) => {
-                setTrainings(trainingsWithCustomers);
-            })
-            .catch((error) => console.error("Error fetching data:", error));
+            .catch((err) => console.error("Error fetching data: " + err));
     };
 
     const handleDelete = (training) => {
@@ -77,7 +58,7 @@ export default function TrainingList() {
 
     const handleConfirmDelete = () => {
         if (trainingToDelete) {
-            deleteTraining(trainingToDelete._links.self.href)
+            deleteTraining(`https://customer-rest-service-frontend-personaltrainer.2.rahtiapp.fi/api/trainings/${trainingToDelete.id}`)
                 .then(() => {
                     handleFetch();
                     setOpen(true);
