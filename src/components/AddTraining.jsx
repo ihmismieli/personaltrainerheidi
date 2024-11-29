@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCustomers, getCustomersForTraining, saveTraining } from "../personalapi";
+import { getCustomers, saveTraining } from "../personalapi";
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem, Select, TextField } from "@mui/material";
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';

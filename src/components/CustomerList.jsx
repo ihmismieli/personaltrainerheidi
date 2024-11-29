@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { deleteCustomer, getCustomers } from '../personalapi';
 import { AgGridReact } from 'ag-grid-react';
 import AddCustomer from './AddCustomer';
@@ -8,6 +8,7 @@ import EditCustomer from './EditCustomer';
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { Button, Dialog, Snackbar, Typography, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import ExportToCsv from './ExportToCSV';
 
 export default function CustomerList() {
 
@@ -18,6 +19,8 @@ export default function CustomerList() {
     const [open, setOpen] = useState(false);
 
     const [openDialog, setOpenDialog] = useState(false);
+
+    const gridRef = useRef();
 
     const [colDefs, setColDefs] = useState([
         { headerName: "First name", field: "firstname", filter: true, width: 150 },
@@ -30,6 +33,7 @@ export default function CustomerList() {
         {
             cellRenderer: params => <EditCustomer data={params.data} handleFetch={handleFetch} />, 
             width: 120,
+            suppressCsvExport: true,
         },
         {
             cellRenderer: params => (
@@ -39,7 +43,9 @@ export default function CustomerList() {
                     color='error'
                     onClick={() => handleDelete(params.data)}
                 >Delete</Button>
-            ), width: 140
+            ), 
+            width: 140,
+            suppressCsvExport: true,
         }
     ]);
 
@@ -83,9 +89,11 @@ export default function CustomerList() {
     return (
         <>
             {<AddCustomer handleFetch={handleFetch} />}
+            <ExportToCsv gridRef={gridRef} />
             <Typography variant="h5" style={{ margin: 10 }}>Customers</Typography>
             <div className='ag-theme-material' style={{ height: 500 }}>
                 <AgGridReact
+                    ref={gridRef}
                     rowData={customers}
                     columnDefs={colDefs}
                     pagination={true}

@@ -3,10 +3,12 @@ import { TabContext, TabPanel, TabList } from '@mui/lab';
 import './App.css'
 import CustomerList from './components/CustomerList';
 import TrainingList from './components/TrainingList';
+import Calendar from './components/Calendar';
 import { useState } from 'react';
+import CalendarTabs from './components/CalendarTabs';
 
 function App() {
-   const [value, setValue] = useState('2'); 
+   const [value, setValue] = useState('1'); 
 
    const handleTabChange = (event, newValue) => {
      setValue(newValue); 
@@ -24,6 +26,7 @@ function App() {
               <TabList onChange={handleTabChange}>
                   <Tab label="Customers" value="1" />
                   <Tab label="Trainings" value="2" />
+                  <Tab label="Calendar" value="3" />
               </TabList>
             </Box>
             <TabPanel value="1">
@@ -31,6 +34,9 @@ function App() {
             </TabPanel>
             <TabPanel value="2">
               <TrainingList />
+            </TabPanel>
+            <TabPanel value="3">
+              <CalendarTabs />
             </TabPanel>
           </TabContext>
         </Box>
