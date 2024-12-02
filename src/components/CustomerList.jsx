@@ -33,7 +33,6 @@ export default function CustomerList() {
         {
             cellRenderer: params => <EditCustomer data={params.data} handleFetch={handleFetch} />, 
             width: 120,
-            suppressCsvExport: true,
         },
         {
             cellRenderer: params => (
@@ -45,7 +44,6 @@ export default function CustomerList() {
                 >Delete</Button>
             ), 
             width: 140,
-            suppressCsvExport: true,
         }
     ]);
 

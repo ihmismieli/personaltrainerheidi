@@ -3,9 +3,9 @@ import { TabContext, TabPanel, TabList } from '@mui/lab';
 import './App.css'
 import CustomerList from './components/CustomerList';
 import TrainingList from './components/TrainingList';
-import Calendar from './components/Calendar';
 import { useState } from 'react';
 import CalendarTabs from './components/CalendarTabs';
+import Statics from './components/Statics';
 
 function App() {
    const [value, setValue] = useState('1'); 
@@ -27,6 +27,7 @@ function App() {
                   <Tab label="Customers" value="1" />
                   <Tab label="Trainings" value="2" />
                   <Tab label="Calendar" value="3" />
+                  <Tab label="Statics" value="4" />
               </TabList>
             </Box>
             <TabPanel value="1">
@@ -38,10 +39,13 @@ function App() {
             <TabPanel value="3">
               <CalendarTabs />
             </TabPanel>
+            <TabPanel value="4">
+              <Statics />
+            </TabPanel>
           </TabContext>
         </Box>
       </Container>
   );
 }
 
-export default App
+export default App;

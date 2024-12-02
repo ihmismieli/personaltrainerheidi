@@ -7,6 +7,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar, Typography } from "@mui/material";
 import AddTraining from "./AddTraining";
+import Statics from "./Statics";
 
 
 export default function TrainingList() {
@@ -80,6 +81,7 @@ export default function TrainingList() {
     return (
         <>
             <AddTraining handleFetch={handleFetch} />
+            <Statics trainings={trainings} handleFetch={handleFetch}/>
             <Typography variant="h5" style={{ margin: 10 }}>Trainings</Typography>
             <div className="ag-theme-material" style={{ height: 500, width: '100%' }}>
                 <AgGridReact

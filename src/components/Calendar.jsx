@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { getCustomersForTraining } from '../personalapi';
-import { duration } from '@mui/material';
 
 export default function Calendar() {
 
@@ -14,15 +13,19 @@ export default function Calendar() {
     useEffect(() => {
         getCustomersForTraining()
             .then(data => {
-                const calendarEvents = data.map(training => ({
-                    title: `${training.activity} / ${training.customer.firstname} ${training.customer.lastname}`,
-                    start: training.date,
-                    end: calculateEndDate(training.date, training.duration),
-                    extendedProps: {
-                        activity: training.activity,  
-                        customer: `${training.customer.firstname} ${training.customer.lastname}`,  
-                    },
-                }));
+                const calendarEvents = data.map(training => {
+                    const customer = training.customer || {};
+                    return {
+                        title: `${training.activity} / ${customer.firstname || 'Unknown'} ${customer.lastname || 'Unknown'}`,
+                        start: training.date,
+                        end: calculateEndDate(training.date, training.duration),
+                        extendedProps: {
+                            activity: training.activity,
+                            customer: `${customer.firstname || 'Unknown'} ${customer.lastname || 'Unknown'}`,
+                        },
+                    };
+                }
+                );
                 setEvents(calendarEvents);
             })
             .catch(err => console.error("Error fetching trainings: ", err));
@@ -50,7 +53,7 @@ export default function Calendar() {
                 headerToolbar={{
                     left: "prev next today",
                     center: "title",
-                    right:"dayGridMonth,timeGridWeek,timeGridDay,listWeek", 
+                    right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
                 }}
             />
         </>
