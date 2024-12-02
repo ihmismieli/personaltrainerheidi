@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { deleteTraining, getCustomersForTraining, getTrainings } from "../personalapi";
+import { deleteTraining, getCustomersForTraining } from "../personalapi";
 import { AgGridReact } from "ag-grid-react";
 import dayjs from 'dayjs';
 
