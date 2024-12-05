@@ -3,7 +3,6 @@ import { deleteCustomer, getCustomers } from '../personalapi';
 import { AgGridReact } from 'ag-grid-react';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
-// import DeleteCustomer from './DeleteCustomer';
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
