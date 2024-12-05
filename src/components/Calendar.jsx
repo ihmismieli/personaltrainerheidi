@@ -19,6 +19,7 @@ export default function Calendar() {
                         title: `${training.activity} / ${customer.firstname || 'Unknown'} ${customer.lastname || 'Unknown'}`,
                         start: training.date,
                         end: calculateEndDate(training.date, training.duration),
+                        display: 'block',
                         extendedProps: {
                             activity: training.activity,
                             customer: `${customer.firstname || 'Unknown'} ${customer.lastname || 'Unknown'}`,
@@ -47,6 +48,11 @@ export default function Calendar() {
                 events={events}
                 editable={true}
                 droppable={true}
+                eventTimeFormat={{
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                }}
                 eventClick={(info) => {
                     alert(`Training: ${info.event.extendedProps.activity}, Customer: ${info.event.extendedProps.customer}`);
                 }}
